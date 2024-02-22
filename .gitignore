@@ -2,4 +2,4 @@
 build/
 CMakeLists.txt
 pico_sdk_import.cmake
-test.c
+test.cpp
