@@ -1,5 +1,0 @@
-.vscode/
-build/
-CMakeLists.txt
-pico_sdk_import.cmake
-test.cpp
