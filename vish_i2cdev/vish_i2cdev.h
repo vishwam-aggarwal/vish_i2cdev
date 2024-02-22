@@ -13,6 +13,7 @@ class vish_i2cdev
         , uint8_t SDAPin = 1, uint8_t SCLPin = 2, bool PULLUP_Enable = false);
 
     void read(const uint8_t* reg, uint8_t* dat, size_t len);
+    void write(const uint8_t* reg, uint8_t* dat, size_t len);
 
     private:
     uint8_t _addr;

@@ -33,3 +33,13 @@ void vish_i2cdev::read(const uint8_t* reg, uint8_t* dat, size_t len)
     i2c_read_blocking(_i2c_port, _addr, dat, len, false);
 
 }
+
+void vish_i2cdev::write(const uint8_t* reg, uint8_t* dat, size_t len)
+{
+    uint8_t Data[3];
+    Data[0] = *reg;
+    Data[1] = *dat;
+    Data[2] = *(dat + 1);
+    i2c_write_blocking(_i2c_port, _addr, &Data[0], 3, false);
+    //i2c_write_blocking(_i2c_port, _addr, dat, len, false);    
+}
