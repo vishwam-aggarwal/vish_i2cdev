@@ -1,25 +1,19 @@
 #include "vish_i2cdev.h"
 
-vish_i2cdev::vish_i2cdev(uint8_t addr, bool i2cHW, uint32_t speed, uint8_t SDAPin, uint8_t SCLPin, bool PULLUP_Enable)
+vish_i2cdev::vish_i2cdev()
+{
+}
+
+bool vish_i2cdev::begin(uint8_t addr, i2c_inst_t* i2c_port, uint32_t speed, uint8_t SDAPin, uint8_t SCLPin, bool PULLUP_Enable)
 {
     _addr = addr;
-    _i2cHW = i2cHW;
+    _i2c_port = i2c_port;
     _speed = speed;
     _SDAPin = SDAPin;
     _SCLPin = SCLPin;
     _PULLUP_Enable = PULLUP_Enable;
-}
 
-bool vish_i2cdev::begin()
-{
-    if (!_i2cHW)
-    {
-        i2c_init(i2c0, _speed);
-    }
-    else
-    {
-        i2c_init(i2c1, _speed);       
-    }
+    i2c_init(_i2c_port, _speed);
 
     gpio_set_function(_SDAPin, GPIO_FUNC_I2C);
     gpio_set_function(_SCLPin, GPIO_FUNC_I2C);
@@ -31,4 +25,11 @@ bool vish_i2cdev::begin()
     }
 
     return true;
+}
+
+void vish_i2cdev::read(const uint8_t* reg, uint8_t* dat, size_t len)
+{
+    i2c_write_blocking(_i2c_port, _addr, reg, 1, true);
+    i2c_read_blocking(_i2c_port, _addr, dat, len, false);
+
 }

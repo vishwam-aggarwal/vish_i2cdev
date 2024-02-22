@@ -7,13 +7,16 @@
 class vish_i2cdev
 {
     public:
-    vish_i2cdev(uint8_t addr, bool i2cHW = 0, uint32_t speed = 400*1000
+    vish_i2cdev();
+    
+    bool begin(uint8_t addr, i2c_inst_t* i2c_port = i2c0, uint32_t speed = 400*1000
         , uint8_t SDAPin = 1, uint8_t SCLPin = 2, bool PULLUP_Enable = false);
-    bool begin();
+
+    void read(const uint8_t* reg, uint8_t* dat, size_t len);
 
     private:
     uint8_t _addr;
-    bool _i2cHW;
+    i2c_inst_t* _i2c_port;
     uint32_t _speed;
     uint8_t _SDAPin, _SCLPin;
     bool _PULLUP_Enable;
