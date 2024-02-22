@@ -42,6 +42,5 @@ void vish_i2cdev::write(const uint8_t* reg, uint8_t* dat, size_t len)
     {
         Data[i+1] = *(dat + i);
     }
-    i2c_write_blocking(_i2c_port, _addr, &Data[0], len+1, false);
-    //i2c_write_blocking(_i2c_port, _addr, dat, len, false);    
+    i2c_write_blocking(_i2c_port, _addr, &Data[0], len+1, false); 
 }
