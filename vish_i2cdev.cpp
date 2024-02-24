@@ -23,20 +23,28 @@ bool vish_i2cdev::begin(uint8_t* addr, i2c_inst_t* i2c_port, uint* speed, uint8_
     return true;
 }
 
-void vish_i2cdev::read(const uint8_t* reg, uint8_t* dat, size_t len)
+void vish_i2cdev::read(uint8_t* reg, uint8_t* dat, size_t len, size_t reg_len)
 {
-    i2c_write_blocking(_i2c_port, *_addr, reg, 1, true);
+    uint8_t Reg[reg_len];
+    for(uint8_t i=0; i<(reg_len); i++)
+    {
+        Reg[i] = *(reg + i);
+    }    
+    i2c_write_blocking(_i2c_port, *_addr, &Reg[0], reg_len, true); 
     i2c_read_blocking(_i2c_port, *_addr, dat, len, false);
 
 }
 
-void vish_i2cdev::write(const uint8_t* reg, uint8_t* dat, size_t len)
+void vish_i2cdev::write(uint8_t* reg, uint8_t* dat, size_t len, size_t reg_len)
 {
-    uint8_t Data[len+1];
-    Data[0] = *reg;
-    for(uint8_t i=0; i<(len); i++)
+    uint8_t Data[len+reg_len];
+    for(uint8_t i=0; i<(reg_len); i++)
     {
-        Data[i+1] = *(dat + i);
+        Data[i] = *(reg + i);
+    }
+    for(uint8_t j=0; j<(len); j++)
+    {
+        Data[reg_len+j] = *(dat + j);
     }
     i2c_write_blocking(_i2c_port, *_addr, &Data[0], len+1, false); 
 }
