@@ -4,7 +4,7 @@ vish_i2cdev::vish_i2cdev()
 {
 }
 
-bool vish_i2cdev::begin(uint8_t* addr, i2c_inst_t* i2c_port, uint* speed, uint8_t* SDAPin, uint8_t* SCLPin, bool* PULLUP_Enable)
+bool vish_i2cdev::begin(uint8_t* addr, i2c_inst_t* i2c_port, uint* speed, uint8_t* SDAPin, uint8_t* SCLPin, bool* PullUp_Enable)
 {
     _i2c_port = i2c_port;
     _addr = addr;
@@ -14,7 +14,7 @@ bool vish_i2cdev::begin(uint8_t* addr, i2c_inst_t* i2c_port, uint* speed, uint8_
     gpio_set_function(*SDAPin, GPIO_FUNC_I2C);
     gpio_set_function(*SCLPin, GPIO_FUNC_I2C);
 
-    if(*PULLUP_Enable)
+    if(*PullUp_Enable)
     {
         gpio_pull_up(*SDAPin);
         gpio_pull_up(*SCLPin);    
