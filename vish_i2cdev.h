@@ -10,7 +10,7 @@ class vish_i2cdev
     vish_i2cdev();
     
     bool begin(uint8_t* addr, i2c_inst_t* i2c_port, uint* speed,
-                uint8_t* SDAPin, uint8_t* SCLPin, bool* PULLUP_Enable);
+                uint8_t* SDAPin, uint8_t* SCLPin, bool* PullUp_Enable);
 
     void read(uint8_t* reg, uint8_t* dat, size_t len, size_t reg_len = 1);
     void write(uint8_t* reg, uint8_t* dat, size_t len, size_t reg_len = 1);
